@@ -1,21 +1,50 @@
-import Logo from "../../Image/Logo.png"
-import Picture from '../../Image/picture.png';
-import { ContainerCard, HanselImage, UserImage } from "./UserCard.styled";
-import Hansel from '../../Image/Hansel.png';
 
-function UserCards() {
+import {
+  CardBox,
+  DescriptionBox,
+  FollowBtn,
+  FollowBtnActive,
+  Followers,
+  Hero,
+  Logo,
+  Name,
+  ProfileBox,
+  ProfileImage,
+  ProfileThumb,
+  Tweets,
+} from './UserCard.styled';
+import { useState } from 'react';
+import LogoPicture from '../../Image/Logo.png'
+import Pictures from '../../Image/picture.png';
+
+
+
+function UserCards({ avatar, name, tweets, followers }) {
+  const [active, setActive] = useState(false);
+  const handleClick = () => {
+    setActive(prevActive => !prevActive);
+  };
   return (
     <>
-      <ContainerCard>
-        <img src={Logo} alt="Logo" />
-        <img src={Picture} alt="just pictures" />
-        <UserImage>
-          <HanselImage src={Hansel} alt="Hansel" />
-        </UserImage>
-        <div>Tweets</div>
-        <div>Followers</div>
-        <button type="submit"> Follow</button>
-      </ContainerCard>
+      <CardBox>
+        <Logo src={LogoPicture} alt="logo" />
+        <Hero src={Pictures} alt="pict" />
+        <ProfileBox>
+          <ProfileThumb>
+            <ProfileImage src={avatar} alt="user avatar" />
+          </ProfileThumb>
+        </ProfileBox>
+        <DescriptionBox>
+          <Name>{name}</Name>
+          <Tweets>{tweets} Tweets</Tweets>
+          <Followers>{followers} FOLLOWERS</Followers>
+          {active ? (
+            <FollowBtnActive onClick={handleClick}>FOLLOWING</FollowBtnActive>
+          ) : (
+            <FollowBtn onClick={handleClick}>FOLLOW</FollowBtn>
+          )}
+        </DescriptionBox>
+      </CardBox>
     </>
   );
 }
