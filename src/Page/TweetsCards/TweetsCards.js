@@ -1,15 +1,34 @@
-import UserCards from 'components/UserCards/UserCarads';
+import { fetchTweets } from "Redax/Cards/operations";
+import { selectIsLoading } from "Redax/Cards/selector";
+import FilterSelect from "components/FilterSelect/FilterSelect";
+import Loader from "components/Loader/Loader";
+import UserCards from "components/UserCards/UserCarads";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import Hansel from '../../Image/Hansel.png';
-import { useState } from 'react';
+
+
 
 function TweetsCards() {
-  const [avatar, setAvatar] = useState(Hansel);
-  setAvatar()
+   const [page, setPage] = useState(1);
+  const isLoading = useSelector(selectIsLoading);
+
+
+  const dispatch = useDispatch();
+   useEffect(() => {
+     dispatch(fetchTweets({ page, limit: 3}));
+   }, [dispatch, page]);
+   const loadMoreHandler = () => {
+     setPage(prevState => prevState + 1);
+   };
   return (
     <>
       <h1> Tweets Page</h1>
-      <UserCards avatar={avatar} />
+      <FilterSelect />
+      {isLoading && <Loader />}
+      {!isLoading && <UserCards />}
+      {!isLoading && <button onClick={loadMoreHandler}>Load More</button>}
     </>
   );
 }

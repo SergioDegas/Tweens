@@ -12,7 +12,7 @@ export const App = () => {
       <GlobalStyle />
       <Suspense fallback={<Loader />}>
         <Routes>
-          <Route exact path="/" element={<Home />} />
+          <Route  path="/" element={<Home />} />
           <Route path="/tweets" element={<TweetsCards />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>

@@ -119,21 +119,8 @@ export const FollowBtn = styled.button`
   border-radius: 10.3108px;
   margin-left: auto;
   margin-right: auto;
+  &.following {
+    transition: transform 250ms cubic-bezier(0.075, 0.82, 0.165, 1);
+    background: #5cd3a8;
+  }
 `;
-export const FollowBtnActive = styled.button`
-  width: 196px;
-  height: 50px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 14px 28px;
-  gap: 6px;
-  background: #5cd3a8;
-  box-shadow: 0px 3.43693px 3.43693px rgba(0, 0, 0, 0.25);
-  border-radius: 10.3108px;
-  margin-left: auto;
-  margin-right: auto;
-`;
-
-
