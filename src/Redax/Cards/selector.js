@@ -1,5 +1,4 @@
-export const selectFollow = state => state.card.follow
-export const selectCard = state => state.card.items;
-export const selectIsLoading = state => state.card.isLoading;
-export const selectError = state => state.card.error;
-
+export const selectCard = state => state.users.users;
+export const selectFollow = state => state.users.follow;
+export const selectIsLoading = state => state.users.isLoading;
+export const selectError = state => state.users.error;

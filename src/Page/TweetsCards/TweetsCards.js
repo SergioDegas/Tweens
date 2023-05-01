@@ -1,3 +1,4 @@
+import { Button } from "Page/Home/Home.styled";
 import { fetchTweets } from "Redax/Cards/operations";
 import { selectIsLoading } from "Redax/Cards/selector";
 import FilterSelect from "components/FilterSelect/FilterSelect";
@@ -25,6 +26,7 @@ function TweetsCards() {
   return (
     <>
       <h1> Tweets Page</h1>
+      <Button to="/">Go back</Button>
       <FilterSelect />
       {isLoading && <Loader />}
       {!isLoading && <UserCards />}

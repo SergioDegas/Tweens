@@ -124,3 +124,14 @@ export const FollowBtn = styled.button`
     background: #5cd3a8;
   }
 `;
+
+export const List = styled.ul`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  max-width: 1200px; 
+  margin-right: auto;
+  margin-left: auto;
+`;

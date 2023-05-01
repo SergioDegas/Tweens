@@ -3,6 +3,7 @@ import {
   DescriptionBox,
   Followers,
   Hero,
+  List,
   Logo,
   Name,
   ProfileBox,
@@ -26,15 +27,16 @@ function UserCards() {
   const active = id => {
     return follow.includes(id);
   };
-
-  const activeToggle = (id) => {
-    dispatch(toggleFollowing(id));
-  };
+ console.log(filteredUsers);
 
   return (
     <>
-      <ul>
-        {filteredUsers.map(({ avatar, name, tweets, newFollower, id }) => {
+      <List>
+        {filteredUsers.map(({ avatar, name, tweets, followers, id }) => {
+          const activeToggle = () => {
+            dispatch(toggleFollowing(id));
+          };
+           
           return (
             <li key={id}>
               <CardBox>
@@ -48,14 +50,14 @@ function UserCards() {
                 <DescriptionBox>
                   <Name>{name}</Name>
                   <Tweets>{tweets} Tweets</Tweets>
-                  <Followers>{newFollower} FOLLOWERS</Followers>
+                  <Followers>{followers} FOLLOWERS</Followers>
                 </DescriptionBox>
                 <FollowButton onClick={activeToggle} follow={active(id)} />
               </CardBox>
             </li>
           );
         })}
-      </ul>
+      </List>
     </>
   );
 }

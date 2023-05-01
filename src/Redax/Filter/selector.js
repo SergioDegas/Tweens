@@ -9,11 +9,12 @@ export const selectFiltered = createSelector(
   (users, statusFilter, follow) => {
     switch (statusFilter) {
       case statusFilters.follow:
-        return users.filter(({id}) => !follow.includes(id));
+        return users.filter(user => !follow.includes(user.id));
       case statusFilters.followings:
-        return users.filter(({id}) => follow.includes(id));
+        return users.filter(user => follow.includes(user.id));
       default:
         return users;
     }
   }
 );
+

@@ -7,7 +7,7 @@ export const fetchTweets = createAsyncThunk(
   'tweets/fetchAll',
   async ({ page, limit }, thunkAPI) => {
     try {
-      const { data } = await axios.get(`/users?page=${page}&limit=${limit}`);
+      const { data } = await axios.get(`/tweets?page=${page}&limit=${limit}`);
       return data;
     } catch (error) {
       throw new Error(error.message);

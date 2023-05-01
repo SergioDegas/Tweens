@@ -2,70 +2,72 @@ import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { fetchTweets } from './operations';
 
 
-const setFollowers = (users, userId, followers) => {
-  for (const user of users) {
-    if (user.id === userId) {
-      user.followers = followers;
-      break;
-    }
-  }
+const initialState = {
+  users: [],
+  follow: [],
+  isLoading: false,
+  error: null,
 };
 
-export const fetchUsersFulfilled = (state, action) => {
+const extraActions = [fetchTweets];
+const getActions = type => isAnyOf(...extraActions.map(action => action[type]));
+
+const fetchUsersFulfilledReducer = (state, action) => {
   const newUsers = action.payload.filter(
-    newUser =>
-      !state.allUsers.some(existingUser => existingUser.id === newUser.id)
+    item => !state.users.some(existingItem => existingItem.id === item.id)
   );
-  state.allUsers = [...state.allUsers, ...newUsers];
+  state.users = [...state.users, ...newUsers];
 };
 
-export const setLoading = state => {
+const contactsAnyPendingReducer = state => {
   state.isLoading = true;
 };
 
-export const setError = (state, action) => {
+const contactsAnyFulfilledReducer = state => {
+  state.isLoading = false;
+  state.error = null;
+};
+
+const contactsAnyRejectedReducer = (state, action) => {
   state.isLoading = false;
   state.error = action.payload;
 };
 
-export const toggleFollowing = (state, action) => {
-  const { allUsers } = state;
-  const { payload: userId } = action;
-
-  if (!state.follow.includes(userId)) {
-    state.follow.push(userId);
-    setFollowers(
-      allUsers,
-      userId,
-      allUsers.find(user => user.id === userId).followers + 1
-    );
+const toggleFollowingReducer = (state, action) => {
+  if (!state.follow.includes(action.payload)) {
+    state.follow.push(action.payload);
+    for (const user of state.users) {
+      if (user.id === action.payload) {
+        user.followers = Number(user.followers) + 1;
+        break;
+      }
+    }
   } else {
-    const index = state.follow.findIndex(value => value === userId);
+    const index = state.follow.findIndex(value => value === action.payload);
     state.follow.splice(index, 1);
-    setFollowers(
-      allUsers,
-      userId,
-      allUsers.find(user => user.id === userId).followers - 1
-    );
+    for (const user of state.users) {
+      if (user.id === action.payload) {
+        user.followers = Number(user.followers) - 1;
+        break;
+      }
+    }
   }
 };
 
+
 const usersSlice = createSlice({
-  name: 'card',
-  initialState: {
-    items: [],
-    follow: [],
-    isLoading: false,
-    error: null,
+  name: 'users',
+  initialState,
+  reducers: {
+    toggleFollowing: toggleFollowingReducer,
   },
-  reducers: {},
-  extraReducers: builder => {
+  extraReducers: builder =>
     builder
-      .addCase(fetchTweets.fulfilled, fetchUsersFulfilled)
-      .addMatcher(isAnyOf(fetchTweets.pending), setLoading)
-      .addMatcher(isAnyOf(fetchTweets.rejected), setError);
-  },
+      .addCase(fetchTweets.fulfilled, fetchUsersFulfilledReducer)
+      .addMatcher(getActions('pending'), contactsAnyPendingReducer)
+      .addMatcher(getActions('rejected'), contactsAnyRejectedReducer)
+      .addMatcher(getActions('fulfilled'), contactsAnyFulfilledReducer),
 });
 
 export const usersReducer = usersSlice.reducer;
-export const { resetUsers } = usersSlice.actions;
+export const { resetUsers, toggleFollowing } = usersSlice.actions;
