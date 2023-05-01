@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+
 import { Button, ContainerHome, Emoji, WelcomeTitle } from "./Home.styled";
 
 function Home() {

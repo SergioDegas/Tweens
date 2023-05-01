@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 function TweetsCards() {
   const [avatar, setAvatar] = useState(Hansel);
+  setAvatar()
   return (
     <>
       <h1> Tweets Page</h1>
