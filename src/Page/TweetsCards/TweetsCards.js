@@ -31,7 +31,7 @@ function TweetsCards() {
       <FilterSelect />
       {isLoading && <Loader />}
       {!isLoading && <UserCards />}
-      {!isLoading && <button onClick={loadMoreHandler}>Load More</button>}
+      {!isLoading && <Button onClick={loadMoreHandler}>Load More</Button>}
     </>
   );
 }
