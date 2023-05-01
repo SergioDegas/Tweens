@@ -13,7 +13,7 @@ import {
 } from './UserCard.styled';
 
 import LogoPicture from '../../Image/Logo.png';
-import Pictures from '../../Image/picture.png';
+import hero from '../../Image/hero.png';
 import { selectFiltered } from 'Redax/Filter/selector';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleFollowing } from 'Redax/Cards/slice';
@@ -41,7 +41,7 @@ function UserCards() {
             <li key={id}>
               <CardBox>
                 <Logo src={LogoPicture} alt="logo" />
-                <Hero src={Pictures} alt="pict" />
+                <Hero src={hero} alt="pict" />
                 <ProfileBox>
                   <ProfileThumb>
                     <ProfileImage src={avatar} alt="user avatar" />

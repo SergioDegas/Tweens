@@ -26,7 +26,8 @@ function TweetsCards() {
   return (
     <>
       <h1> Tweets Page</h1>
-      <Button to="/">Go back</Button>
+      {!isLoading && <Button to="/">Go back</Button>}
+
       <FilterSelect />
       {isLoading && <Loader />}
       {!isLoading && <UserCards />}
